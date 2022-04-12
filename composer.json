@@ -64,7 +64,8 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "secure-http":false
     },
     "autoload": {
         "psr-4": {
@@ -101,5 +102,23 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
-    }
+    },
+    "repositories":[
+
+        {
+
+            "type": "composer",
+
+            "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/"
+
+        },
+
+        {
+
+            "packagist.org": false
+
+        }
+
+    ]
+
 }
