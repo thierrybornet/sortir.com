@@ -3,6 +3,12 @@
 {% block title %}{{ parent() }} | Home {% endblock %}
 {% block body %}
     {{ parent() }}
+    <div>
+        <h4>Date du jour : {{ 'now'| date('d/m/Y')}}</h4>
+    </div>
+    <div>
+        <h4>Participant : {{app.user.prenom}} {{ app.user.nom }}</h4>
+    </div>
 
     <div class="container">
         <div class="text-center mt-5">
