@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VilleController!{% endblock %}
+
+{% block body %}
+{{ parent() }}
+    <h3>villes</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Villes</th>
+            <th scope="col">Code postal</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if villes %}
+        {% for ville in villes %}
+        <tr>
+            <th scope="row">{{ ville.id }}</th>
+            <td>{{ ville.nom }}</td>
+            <td>{{ ville.codePostal}}</td>
+            <td><button class="btn btn-danger">Supprimer</button></td>
+            <td><button class="btn btn-primary">Modifier</button></td>
+        </tr>
+        {%  endfor %}
+        {% endif %}
+        <tr>
+            <th scope="row"></th>
+
+            {{ form_start(villeForm) }}
+            <td>{{ form_row(villeForm.nom) }}</td>
+            <td>{{ form_row(villeForm.codePostal) }}</td>
+            <td><button class="btn btn-secondary">Ajouter</button></td>
+        </tr>
+            {{ form_end(villeForm) }}
+
+
+        </tbody>
+    </table>
+
+
+{% endblock %}
