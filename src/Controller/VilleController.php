@@ -43,6 +43,36 @@ class VilleController extends AbstractController
         ]);
 
     }
+
+
+    /**
+     * @Route("/supprimerVille/{id<[0-9]+>}", name="app_supprimer_ville")
+     */
+    public function supprimer(VilleRepository $repo,Ville $ville): Response
+    {
+        $repo->remove($ville);
+        return $this->redirectToRoute('app_ville');
+
+
+
+    }
+
+
+    /**
+     * @Route("/modifierVille/{id<[0-9]+>}", name="app_modifier_ville")
+     */
+
+    public function modifier(EntityManagerInterface $entityManager,Ville $ville): Response
+    {
+
+
+
+        //return $this->redirectToRoute('app_ville');
+
+        return $this->render('ville/modifier.html.twig');
+
+    }
+
 }
 
 

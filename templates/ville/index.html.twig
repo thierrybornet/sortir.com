@@ -4,13 +4,13 @@
 
 {% block body %}
 {{ parent() }}
-    <h3>villes</h3>
+    <h3>Gérer les villes</h3>
 
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Villes</th>
+            <th scope="col">Ville</th>
             <th scope="col">Code postal</th>
             <th scope="col">Actions</th>
         </tr>
@@ -20,10 +20,11 @@
         {% for ville in villes %}
         <tr>
             <th scope="row">{{ ville.id }}</th>
+
             <td>{{ ville.nom }}</td>
             <td>{{ ville.codePostal}}</td>
-            <td><button class="btn btn-danger">Supprimer</button></td>
-            <td><button class="btn btn-primary">Modifier</button></td>
+            <td><a href="{{ path('app_supprimer_ville',{id:ville.id}) }}"><button class="btn btn-danger">Supprimer</button></a></td>
+            <td><a href="#"><button class="btn btn-primary">Modifier</button></a></td>c
         </tr>
         {%  endfor %}
         {% endif %}

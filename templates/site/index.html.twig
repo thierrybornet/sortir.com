@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h3>Gérer les sites</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Site</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if sites %}
+            {% for site in sites %}
+                <tr>
+                    <th scope="row">{{ site.id }}</th>
+
+                    <td>{{ site.nom }}</td>
+                    <td><a href="{{ path('app_supprimer_site',{id:site.id}) }}"><button class="btn btn-danger">Supprimer</button></a></td>
+                    <td><a href="#"><button class="btn btn-primary">Modifier</button></a></td>
+                </tr>
+            {%  endfor %}
+        {% endif %}
+        <tr>
+            <th scope="row"></th>
+
+            {{ form_start(siteForm) }}
+            <td>{{ form_row(siteForm.nom) }}</td>
+            <td><button class="btn btn-secondary">Ajouter</button></td>
+        </tr>
+        {{ form_end(siteForm) }}
+
+
+        </tbody>
+    </table>
+
+
+{% endblock %}
