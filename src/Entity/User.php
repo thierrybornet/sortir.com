@@ -92,8 +92,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
      */
+
     private $site;
 
     /**
@@ -102,7 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $inscriptions;
 
     /**
-     * @ORM\OneToMany(targetEntity=sortie::class, mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="auteur")
      */
     private $sortiesOrganisees;
 

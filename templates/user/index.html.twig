@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Mon profil</h1>
+
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.pseudo,{
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+    {{ form_row(registrationForm.prenom,{
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+
+    {{ form_row(registrationForm.nom,{
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+    {{ form_row(registrationForm.telephone,{
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+    {{ form_row(registrationForm.email,{
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+    {{ form_row(registrationForm.plainPassword, {
+        label: 'Password',
+        attr:{
+            class:'form-control'
+        },row_attr:{
+            class:'form-group'
+        }
+    }) }}
+
+    {{ form_row(registrationForm.administrateur,{
+        attr:{
+            class:'form-check-input'
+        },row_attr:{
+            class:'form-check'
+        }
+    }) }}
+
+    {{ form_row(registrationForm.actif,{
+        attr:{
+            class:'form-check-input'
+        },row_attr:{
+            class:'form-check'
+        }
+    }) }}
+
+    {{ form_row(registrationForm.site,{
+        attr:{
+            class:'form-group'
+        },row_attr:{
+            class:'form-check'
+        }
+    }) }}
+
+    <div>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+        {{ form_end(registrationForm) }}
+        <a href="{{ path('app_home') }}"><button type="submit" class="btn btn-secondary">Annuler</button></a>
+
+    </div>
+
+{% endblock %}

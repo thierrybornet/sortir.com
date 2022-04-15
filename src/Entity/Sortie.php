@@ -50,11 +50,6 @@ class Sortie
     private $nbInscriptionsMax;
 
 
-   /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    //private $etatSortie;
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -77,6 +72,11 @@ class Sortie
      * @ORM\JoinColumn(nullable=false)
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="sorties")
+     */
+    private $site;
 
     public function __construct()
     {
@@ -234,6 +234,18 @@ class Sortie
     public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
 
         return $this;
     }

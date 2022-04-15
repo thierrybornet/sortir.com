@@ -51,6 +51,7 @@ class VilleController extends AbstractController
     public function supprimer(VilleRepository $repo,Ville $ville): Response
     {
         $repo->remove($ville);
+
         return $this->redirectToRoute('app_ville');
 
 

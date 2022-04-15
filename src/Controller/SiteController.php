@@ -30,7 +30,6 @@ class SiteController extends AbstractController
             $entityManager->persist($site);
             $entityManager->flush();
 
-            $this->addFlash('success','Your wish has been added succufully');
 
             return $this->redirectToRoute('app_site');
 
@@ -48,6 +47,7 @@ class SiteController extends AbstractController
     public function supprimer(SiteRepository $repo,Site $site): Response
     {
         $repo->remove($site);
+
         return $this->redirectToRoute('app_site');
 
 
