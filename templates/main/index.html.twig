@@ -4,10 +4,17 @@
 {% block body %}
     {{ parent() }}
     <div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
         <h4>Date du jour : {{ 'now'| date('d/m/Y')}}</h4>
     </div>
     <div>
-        <h4>Participant : {{app.user.prenom}} {{ app.user.nom }}</h4>
+        <h4>Participant : {{app.user.prenom |capitalize}} {{ app.user.nom [:1] }}</h4>
     </div>
 
     <div class="dropdown">
@@ -16,10 +23,48 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {%  for site in sites %}
-            <li><a class="dropdown-item" href="#">{{ site.nom }}</a></li>
+                <li><a class="dropdown-item" href="#">{{ site.nom }}</a></li>
             {% endfor %}
         </ul>
     </div>
+
+
+    <div class="input-group">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary">search</button>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom de la sortie</th>
+            <th scope="col">Date de la sortie</th>
+            <th scope="col">Cloture</th>
+            <th scope="col">inscrits/places</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Inscrit</th>
+            <th scope="col">Organisateur</th>
+            <th scope="col">Actions</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+
+        </tr>
+
+        </tbody>
+    </table>
 
 
 
