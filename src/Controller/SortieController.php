@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -49,6 +50,15 @@ class SortieController extends AbstractController
         return $this->render('sortie/creer.html.twig',[
             'sortieForm'=>$sortieForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/sortie/afficher/{id<[0-9]+>}", name="app_sortie_afficher")
+     */
+    public function afficher(Sortie $sortie): Response
+    {
+
+        return $this->render('sortie/afficher.html.twig',compact('sortie'));
     }
 }
 

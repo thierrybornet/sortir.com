@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="vh-100" style="background-color: #9A616D;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ asset('img/img1.webp') }}"
+                                     alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <a href="{{ path('app_login') }}"><img src="{{ asset('img/Logo.svg') }} "width="200" alt="sortir.com"></a>
+                                        <span class="h2 fw-bold mb-0">{{ sortie.nom }}</span>
+                                    </div>
+
+                                    <div>
+                                        <p>Nom : <b>{{ sortie.nom }}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Date et heure de la sortie : <b>{{ sortie.dateDebut | date('d/m/Y H:i')}}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Date limite d'inscription : <b>{{ sortie.dateCloture | date('d/m/Y')}}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Nombre de places : <b>{{ sortie.nbInscriptionsMax }}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Durée : <b>{{ sortie.duree}}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Description et infos : <b>{{ sortie.descriptioninfos}}</b></p>
+                                    </div>
+
+                                    <div>
+                                        <p>Ville organisatrice : <b>{{ app.user.site.nom }}</b></p>
+                                    </div>
+
+
+                                    <div>
+                                        <p>Lieu : <b>{{ sortie.lieu.nom}}</b></p>
+                                    </div>
+
+                                    <div>
+                                        <p>Rue : <b>{{ sortie.lieu.rue}}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Code postal : <b>{{ sortie.lieu.ville.codePostal}}</b></p>
+                                    </div>
+                                        {% if sortie.lieu.latitude  %}
+                                    <div>
+                                        <p>Latitude : <b>{{ sortie.lieu.latitude}}</b></p>
+                                    </div>
+                                        {% endif %}
+
+                                    {% if sortie.lieu.longitude  %}
+                                    <div>
+                                        <p>Longitude: <b>{{ sortie.lieu.longitude}}</b></p>
+                                    </div>
+                                    {% endif %}
+
+                                    <div>
+                                        <h4>Liste des participants inscrits : </h4>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Pseudo</th>
+                                                <th scope="col">Nom</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {%  for u in sortie.inscriptions %}
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>{{ u.user.pseudo |upper }}</td>
+                                                <td>{{ u.user.nom |capitalize}}   {{ u.user.prenom}}</td>
+                                            </tr>
+                                            {% endfor%}
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <a href="{{ path('app_home') }}"><button type="submit" class="btn btn-dark">Retour</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

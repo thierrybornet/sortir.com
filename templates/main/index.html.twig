@@ -36,6 +36,8 @@
     <table class="table">
         <thead>
         <tr>
+
+
             <th scope="col">#</th>
             <th scope="col">Nom de la sortie</th>
             <th scope="col">Date de la sortie</th>
@@ -66,7 +68,21 @@
                 {% endfor %}
             </td>
             <td><a href="{{ path('app_user_afficher',{id:sortie.auteur.id}) }}">{{ sortie.auteur.nom |capitalize }} {{ sortie.auteur.prenom [:1] }}</a></td>
-            <td>Otto</td>
+
+            <td>
+
+                <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">Afficher</button></a>
+
+                {%  for u in sortie.inscriptions %}
+                    {% if  u.id== app.user.id%}
+                        <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-danger">Se désister</button></a>
+                        {% elseif u.id != app.user.id %}
+                            <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">S'inscrire</button></a>
+                    {% endif %}
+                {% endfor %}
+
+
+            </td>
 
         </tr>
         {% endfor %}
