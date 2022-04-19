@@ -3,7 +3,25 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Mon profil</h1>
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="{{ asset('img/img1.webp') }}"
+                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <div class="d-flex align-items-center mb-3 pb-1">
+
+                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                    <a href="{{ path('app_login') }}"><img src="{{ asset('img/Logo.svg') }} "width="200" alt="sortir.com"></a>
+                                    <span class="h4 fw-bold mb-0">Gérer mon profil</span>
+                                </div>
 
     {{ form_start(registrationForm) }}
     {{ form_row(registrationForm.pseudo,{
@@ -51,21 +69,9 @@
         }
     }) }}
 
-    {{ form_row(registrationForm.administrateur,{
-        attr:{
-            class:'form-check-input'
-        },row_attr:{
-            class:'form-check'
-        }
-    }) }}
 
-    {{ form_row(registrationForm.actif,{
-        attr:{
-            class:'form-check-input'
-        },row_attr:{
-            class:'form-check'
-        }
-    }) }}
+
+
 
     {{ form_row(registrationForm.site,{
         attr:{
@@ -75,11 +81,31 @@
         }
     }) }}
 
+                                {{ form_row(registrationForm.photo,{
+                                    attr:{
+                                        class:'form-group'
+                                    },row_attr:{
+                                        class:'form-check'
+                                    }
+                                }) }}
+
+
+
     <div>
         <button type="submit" class="btn btn-success">Enregistrer</button>
         {{ form_end(registrationForm) }}
         <a href="{{ path('app_home') }}"><button type="submit" class="btn btn-secondary">Annuler</button></a>
 
     </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
+{% block footer %} {{ parent () }} {%  endblock %}
+

@@ -35,6 +35,8 @@ class Site
      */
     private $sorties;
 
+
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -117,4 +119,6 @@ class Site
 
         return $this;
     }
+
+
 }

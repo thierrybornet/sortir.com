@@ -3,34 +3,56 @@
 {% block title %}{{ parent() }}|Log in!{% endblock %}
 
 {% block body %}
+    <section class="vh-100" style="background-color: #9A616D;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ asset('img/img1.webp') }}"
+                                     alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
 
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-
-    <div>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
         {% endfor %}
+    <div class="d-flex align-items-center mb-3 pb-1">
+
+        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+        <img src="{{ asset('img/Logo.svg') }} "width="200" alt="">
+        <span class="h2 fw-bold mb-0">Se connecter</span>
+    </div>
+
+    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Connectez-vous à votre compte</h5>
 
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control {% if error %} is-invalid  {% endif %}" autocomplete="email" required autofocus>
-    <div class="invalid-feedback">Please check your email ! </div>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control {% if error %} is-invalid {% endif %}" autocomplete="current-password" required>
-    <div class="invalid-feedback">Please check your password! </div>
+    <div class="form-outline mb-4">
+        <input type="email" id="email" class="form-control form-control-lg {% if error %} is-invalid  {% endif %} " value="{{ last_username }}" name="email" autocomplete="email" required autofocus/>
+        <label class="form-label" for="email">Email</label>
+    </div>
+
+    <div class="invalid-feedback">Veuillez vérifier votre email ! </div>
+
+    <div class="form-outline mb-4">
+        <input type="password" name="password" id=password class="form-control form-control-lg {% if error %} is-invalid {% endif %}" autocomplete="current-password" required />
+        <label class="form-label" for="password">Mot de passe</label>
+    </div>
+
+    <div class="invalid-feedback">Veuillez vérifier votre mot de passe! </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-
-
 
         <div class="checkbox mb-3">
             <label>
@@ -39,8 +61,27 @@
         </div>
 
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+
+
+    <button class="btn btn-lg btn-dark" type="submit">
+        Connexion
     </button>
+
+        <a class="small text-muted" href="#!">Mot de passe oublié?</a>
+
+
+
+
 </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
+{% block footer %} {{ parent () }} {%  endblock %}
+

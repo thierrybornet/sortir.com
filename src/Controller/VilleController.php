@@ -30,8 +30,6 @@ class VilleController extends AbstractController
             $entityManager->persist($ville);
             $entityManager->flush();
 
-            $this->addFlash('success','Your wish has been added succufully');
-
             return $this->redirectToRoute('app_ville');
 
 
@@ -46,7 +44,7 @@ class VilleController extends AbstractController
 
 
     /**
-     * @Route("/supprimerVille/{id<[0-9]+>}", name="app_supprimer_ville")
+     * @Route("/admin/supprimerVille/{id<[0-9]+>}", name="app_supprimer_ville")
      */
     public function supprimer(VilleRepository $repo,Ville $ville): Response
     {

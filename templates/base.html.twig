@@ -7,9 +7,12 @@
     <meta name="author" content="" />
     <title>{% block title %} Sortir {% endblock %}</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="#" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/css.css') }}">
+
+
 </head>
 <body>
 {% block body %}
@@ -26,4 +29,7 @@
 <!-- Core theme JS-->
 {% endblock %}
 </body>
+<footer>
+    {% block footer %} <div class="copyright"> <b class="text-black ">&copy;Sortir.fr {{ 'now'| date('Y')}} </b> </div>  {% endblock %}
+</footer>
 </html>

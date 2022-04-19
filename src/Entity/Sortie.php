@@ -74,9 +74,17 @@ class Sortie
     private $etat;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lieu;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="sorties")
      */
     private $site;
+
+
 
     public function __construct()
     {
@@ -238,6 +246,18 @@ class Sortie
         return $this;
     }
 
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
     public function getSite(): ?Site
     {
         return $this->site;
@@ -249,4 +269,6 @@ class Sortie
 
         return $this;
     }
+
+
 }

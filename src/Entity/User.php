@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -41,6 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Veuillez renseigner une adresse mail!")
+     * @Assert\Email(message="Votre adresse mail n'est pas valide!")
      */
     private $email;
 
@@ -57,11 +60,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank(message="Veuillez renseigner un nom!")
+     * * @Assert\Length(
+     * min=3,
+     * max=50,
+     * minMessage="Minimum 3 caracteres svp!",
+     * maxMessage="Maximum 50 caracteres svp!"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank(message="Veuillez renseigner un prenom!")
+     * * @Assert\Length(
+     * min=3,
+     * max=50,
+     * minMessage="Minimum 3 caracteres svp!",
+     * maxMessage="Maximum 50 caracteres svp!"
+     * )
      */
     private $prenom;
 
@@ -82,11 +99,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank(message="Veuillez renseigner un pseudo!")
+     * * @Assert\Length(
+     * min=3,
+     * max=50,
+     * minMessage="Minimum 5 caracteres svp!",
+     * maxMessage="Maximum 50 caracteres svp!"
+     * )
+     * @Assert\Regex(pattern="/^[a-z0-9_-]+$/i", message="Please use only letters, numbers, underscores and dashes!")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez renseigner un numero de telephone!")
      */
     private $telephone;
 

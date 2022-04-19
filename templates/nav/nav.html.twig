@@ -1,29 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#"><h3>Sortir.com</h3></a>
+        <a class="navbar-brand" href="{{ path('app_home') }}"><img src="{{ asset('img/Logo.svg') }} "width="100" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_ville') }}">Ville</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_site') }}">Site</a></li>
-                    {% endif %}
+
+
                 {% if app.user %}
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Acceuil</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_user_show') }}">Mon profil</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_user_edit') }}">Mon profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 {% endif %}
 
                 {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Register</a></li>
-                {% endif %}
-
-                {% if app.user %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">logout</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dashboard
+                    </a>
+                    <ul class="dropdown-menu bg-danger " aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_ville') }}">Villes</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_site') }}">Sites</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ path('app_register') }}"> Inscription</a></li>
+                    </ul>
+                </li>
                 {% endif %}
 
 
 
             </ul>
+
         </div>
+
     </div>
 </nav>
