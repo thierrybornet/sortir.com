@@ -50,19 +50,26 @@
         </tr>
         </thead>
         <tbody>
+        {%  for sortie in sorties %}
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>Otto</td>
-            <td>Otto</td>
-            <td>Otto</td>
+            <th scope="row"></th>
+
+            <td>{{ sortie.nom }}</td>
+            <td>{{ sortie.dateDebut | date('d/m/Y H:i')}}</td>
+            <td>{{ sortie.dateCloture | date('d/m/Y')}}</td>
+            <td>{{ sortie.inscriptions |length }}/{{ sortie.nbInscriptionsMax }}</td>
+            <td>{{ sortie.etat.libelle }}</td>
+            <td>{%  for u in sortie.inscriptions %}
+               {% if u.id== app.user.id%}
+                   X
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td><a href="{{ path('app_user_afficher',{id:sortie.auteur.id}) }}">{{ sortie.auteur.nom |capitalize }} {{ sortie.auteur.prenom [:1] }}</a></td>
             <td>Otto</td>
 
         </tr>
-
+        {% endfor %}
         </tbody>
     </table>
 
@@ -70,8 +77,8 @@
 
 
     <div class="container">
-        <div class="text-center mt-5">
-            <h1>Home page</h1>
+        <div class=" mt-5">
+            <a href="{{ path('app_sortie_creer') }}"><button class="btn btn-primary">Créer une sortie</button></a>
 
         </div>
     </div>

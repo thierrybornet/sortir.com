@@ -44,4 +44,15 @@ class UserController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/user/afficher/{id<[0-9]+>}", name="app_user_afficher")
+     */
+    public function afficher(User $user): Response
+    {
+
+        return $this->render('user/afficher.html.twig',compact('user'));
+    }
 }
+
+

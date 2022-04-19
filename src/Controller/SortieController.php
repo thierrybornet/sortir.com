@@ -22,7 +22,6 @@ class SortieController extends AbstractController
     public function crerSortie(Request $request,EntityManagerInterface $entityManager,SortieRepository $sortieRepository,EtatRepository $etatRepository): Response
     {
         $user=$this->getUser();
-
         $site=$user->getSite();
 
         $sorite = new Sortie();
@@ -52,3 +51,4 @@ class SortieController extends AbstractController
         ]);
     }
 }
+

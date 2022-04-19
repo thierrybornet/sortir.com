@@ -127,6 +127,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $inscriptions;
 
+
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="auteur")
      */

@@ -8,6 +8,7 @@ use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -21,10 +22,21 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateDebut')
+            ->add('dateDebut',DateType::class,[
+                'html5'=>true,
+                'widget'=>'single_text'
+            ])
             ->add('duree')
-            ->add('dateCloture')
+            ->add('dateCloture',DateType::class,[
+                'html5'=>true,
+                'widget'=>'single_text'
+            ])
             ->add('descriptioninfos')
+
+
+
+
+
             ->add('nbInscriptionsMax')
             ->add('urlPhoto')
 
