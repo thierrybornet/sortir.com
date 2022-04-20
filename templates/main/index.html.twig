@@ -87,18 +87,26 @@
                 {% if sortie.auteur== app.user%}
                     {% if sortie.etat.libelle=='En création' %}
                         <a href="{{ path('app_sortie_modifier',{id:sortie.id}) }}"><button class="btn btn-success">Modifier</button></a>
-                        <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-dark"> Publier</button></a>
+                        <a href="{{ path('app_sortie_publication',{id:sortie.id}) }}"><button class="btn btn-dark"> Publier</button></a>
 
-                    {% endif %}
+                    {% elseif sortie.etat.libelle=='Ouvert'  %}
+                        <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-success">Afficher</button></a>
+                        <a href="{{ path('app_sortie_annuler',{id:sortie.id}) }}"><button class="btn btn-dark"> Annuler</button></a>
+                    {% endif%}
 
                 {% elseif sortie.auteur != app.user %}
                     <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">Afficher</button></a>
 
 
-                                {% if inscrit %}
-                                    <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-danger">Se désister</button></a>
-                                {% else %}
-                                    <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">S'inscrire</button></a>
+                                {% if inscrit  %}
+
+                                    {%  if  'now'| date('d/m/y H:i')  <  sortie.dateDebut | date('d/m/Y H:i') or not 'now'| date('d/m/y')  >  sortie.dateCloture | date('d/m/Y') %}
+
+                                    <a href="{{ path('app_sortie_desister',{id:sortie.id}) }}"><button class="btn btn-danger">Se désister</button></a>
+                                        {% endif %}
+
+                                {% elseif sortie.etat.libelle=='Ouvert' and sortie.usersInscrits|length <  sortie.nbInscriptionsMax and 'now'| date('d/m/y')  <=  (sortie.dateCloture | date('d/m/Y'))  %}
+                                    <a href="{{ path('app_sortie_inscription',{id:sortie.id}) }}"><button class="btn btn-primary">S'inscrire</button></a>
 
                                 {% endif %}
 

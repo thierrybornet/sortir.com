@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,9 +23,10 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateDebut',DateType::class,[
+            ->add('dateDebut',\Symfony\Component\Form\Extension\Core\Type\DateTimeType::class,[
                 'html5'=>true,
-                'widget'=>'single_text'
+                'date_widget'=>'single_text',
+                'time_widget'=>'single_text'
             ])
             ->add('duree')
             ->add('dateCloture',DateType::class,[

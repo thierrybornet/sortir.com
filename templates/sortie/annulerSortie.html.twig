@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <div class="d-flex align-items-center mb-3 pb-1">
+
+                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                    <a href="{{ path('app_login') }}"><img src="{{ asset('img/Logo.svg') }} "width="200" alt="sortir.com"></a>
+                                    <span class="h2 fw-bold mb-0">Créer une sortie</span>
+                                </div>
+                                <div>
+                                    <h1 class="text-center">Annuler une sortie </h1>
+                                </div>
+
+
+                                <div>
+                                    <p>Nom : <b>{{ sortie.nom }}</b></p>
+                                </div>
+
+
+                                <div>
+                                    <p>Date de début : <b>{{ sortie.dateDebut | date('d/m/Y')}} </b></p>
+                                </div>
+
+
+                                <div>
+                                    <p>Ville organisatrice : <b>{{ app.user.site.nom }}</b></p>
+                                </div>
+
+
+                                <div>
+                                    <p>Lieu : <b>{{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }}-{{ sortie.lieu.nom }}</b></p>
+                                </div>
+
+                                {{ form_start(annulerSortieForm) }}
+                                {{ form_row(annulerSortieForm.motifAnnulation,{
+                                    attr:{
+                                        class:'form-control '
+                                    },row_attr:{
+                                        class:'form-group'
+                                    }
+                                }) }}
+
+                                <button type="submit" class="btn btn-dark" name="annuler" value="enregistrer">Enregistrer</button>
+                                <button type="submit" class="btn btn-danger" name="annuler" value="annuler">Annuler</button>
+
+
+
+                                {{ form_end(annulerSortieForm) }}
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

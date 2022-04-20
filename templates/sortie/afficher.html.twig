@@ -93,7 +93,9 @@
                                             {%  for u in sortie.usersInscrits %}
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>{{ u.pseudo |upper }}</td>
+                                                <td><a href="{{ path('app_user_afficher',{id:u.id}) }}">{{ u.pseudo |upper }}</a></td>
+
+
                                                 <td>{{ u.nom |capitalize}}   {{ u.prenom}}</td>
                                             </tr>
                                             {% endfor%}
