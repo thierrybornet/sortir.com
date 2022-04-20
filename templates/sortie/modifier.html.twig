@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une sortie!{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <section class="vh-100" style="background-color: #9A616D;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <a href="{{ path('app_login') }}"><img src="{{ asset('img/Logo.svg') }} "width="200" alt="sortir.com"></a>
+                                        <span class="h2 fw-bold mb-0">Créer une sortie</span>
+                                    </div>
+                                    {{ form_start(sortieForm) }}
+                                    {{ form_row(sortieForm.nom,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+
+                                    {{ form_row(sortieForm.dateDebut,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+
+                                    {{ form_row(sortieForm.dateCloture,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+
+                                    {{ form_row(sortieForm.nbInscriptionsMax,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+
+
+                                    {{ form_row(sortieForm.duree,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+
+
+                                    {{ form_row(sortieForm.descriptioninfos,{
+                                        attr:{
+                                            class:'form-control '
+                                        },row_attr:{
+                                            class:'form-group'
+                                        }
+                                    }) }}
+                                    <div>Ville organisatrice: <b>{{ app.user.site.nom }}</b></div>
+
+                                    {{ form_row(sortieForm.ville)}}
+
+                                    {{ form_row(sortieForm.lieu)}}
+                                    {{ form_row(sortieForm.urlPhoto)}}
+
+
+
+
+
+
+                                    <button type="submit" class="btn btn-dark">Enregistrer</button>
+                                    <button type="submit" class="btn btn-primary">Publier</button>
+                                    <button type="submit" class="btn btn-danger">Annuler</button>
+
+
+
+                                    {{ form_end(sortieForm) }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block footer %} {{ parent () }}{% endblock %}
+

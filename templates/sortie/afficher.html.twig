@@ -90,11 +90,11 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {%  for u in sortie.inscriptions %}
+                                            {%  for u in sortie.usersInscrits %}
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>{{ u.user.pseudo |upper }}</td>
-                                                <td>{{ u.user.nom |capitalize}}   {{ u.user.prenom}}</td>
+                                                <td>{{ u.pseudo |upper }}</td>
+                                                <td>{{ u.nom |capitalize}}   {{ u.prenom}}</td>
                                             </tr>
                                             {% endfor%}
 

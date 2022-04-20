@@ -122,16 +122,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $site;
 
-    /**
-     * @ORM\OneToMany(targetEntity=inscription::class, mappedBy="user")
-     */
-    private $inscriptions;
+
 
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="auteur")
      */
     private $sortiesOrganisees;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="usersInscrits")
+     */
+    private $inscriptions;
 
     public function __construct()
     {
@@ -324,35 +326,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(inscription $inscription): self
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(inscription $inscription): self
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getUser() === $this) {
-                $inscription->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, sortie>
@@ -380,6 +353,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $sortiesOrganisee->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Sortie $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Sortie $inscription): self
+    {
+        $this->inscriptions->removeElement($inscription);
 
         return $this;
     }

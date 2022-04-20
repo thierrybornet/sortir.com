@@ -20,13 +20,13 @@ class SortieController extends AbstractController
     /**
      * @Route("/creer/sortie", name="app_sortie_creer")
      */
-    public function crerSortie(Request $request,EntityManagerInterface $entityManager,SortieRepository $sortieRepository,EtatRepository $etatRepository): Response
+    public function creerSortie(Request $request,EntityManagerInterface $entityManager,SortieRepository $sortieRepository,EtatRepository $etatRepository): Response
     {
         $user=$this->getUser();
         $site=$user->getSite();
 
         $sorite = new Sortie();
-        $etat = $etatRepository->findOneBy(['libelle'=>'Crée']);
+        $etat = $etatRepository->findOneBy(['libelle'=>'En création']);
 
         $sorite->setSite($site);
         $sorite->setEtat($etat);
@@ -60,5 +60,48 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/afficher.html.twig',compact('sortie'));
     }
+
+    /**
+     * @Route("/modifer/sortie/{id<[0-9]+>}", name="app_sortie_modifier")
+     */
+    public function modifierSortie(Request $request,EntityManagerInterface $entityManager,
+                                   SortieRepository $sortieRepository,
+                                   EtatRepository $etatRepository,
+                                   $id): Response
+    {
+        $user=$this->getUser();
+        $site=$user->getSite();
+
+        $sorite =$sortieRepository->find($id);
+
+        $etat = $etatRepository->findOneBy(['libelle'=>'En création']);
+
+        $sorite->setSite($site);
+        $sorite->setEtat($etat);
+        $sorite->setAuteur($user);
+
+        $sortieForm = $this->createForm(SortieType::class, $sorite);
+        $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+
+            $entityManager->persist($sorite);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+            $this->addFlash('success', 'Votre Sortie à été modifié avec succes!');
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('sortie/modifier.html.twig',[
+            'sortieForm'=>$sortieForm->createView(),
+            'sorite'=>$sorite
+        ]);
+    }
+
+
+
 }
 

@@ -56,10 +56,7 @@ class Sortie
      */
     private $urlPhoto;
 
-    /**
-     * @ORM\OneToMany(targetEntity=inscription::class, mappedBy="sortie")
-     */
-    private $inscriptions;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
@@ -84,12 +81,19 @@ class Sortie
      */
     private $site;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="inscriptions")
+     */
+    private $usersInscrits;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
+        $this->usersInscrits = new ArrayCollection();
     }
+
+
+
+
 
     public function getId(): ?int
     {
@@ -192,35 +196,6 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection<int, inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(inscription $inscription): self
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(inscription $inscription): self
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getSortie() === $this) {
-                $inscription->setSortie(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getAuteur(): ?User
     {
@@ -266,6 +241,33 @@ class Sortie
     public function setSite(?Site $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersInscrits(): Collection
+    {
+        return $this->usersInscrits;
+    }
+
+    public function addUsersInscrit(User $usersInscrit): self
+    {
+        if (!$this->usersInscrits->contains($usersInscrit)) {
+            $this->usersInscrits[] = $usersInscrit;
+            $usersInscrit->addInscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersInscrit(User $usersInscrit): self
+    {
+        if ($this->usersInscrits->removeElement($usersInscrit)) {
+            $usersInscrit->removeInscription($this);
+        }
 
         return $this;
     }

@@ -59,27 +59,54 @@
             <td>{{ sortie.nom }}</td>
             <td>{{ sortie.dateDebut | date('d/m/Y H:i')}}</td>
             <td>{{ sortie.dateCloture | date('d/m/Y')}}</td>
-            <td>{{ sortie.inscriptions |length }}/{{ sortie.nbInscriptionsMax }}</td>
+            <td>{{ sortie.usersInscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
             <td>{{ sortie.etat.libelle }}</td>
-            <td>{%  for u in sortie.inscriptions %}
-               {% if u.id== app.user.id%}
-                   X
+            <td>
+                {%  set inscrit = false %}
+                {%  for u in sortie.usersInscrits %}
+                    {% if u== app.user%}
+                        {%  set inscrit = true %}
                     {% endif %}
                 {% endfor %}
+
+
+
+               {% if inscrit %}
+                   X
+               {% endif %}
+
+
+
             </td>
             <td><a href="{{ path('app_user_afficher',{id:sortie.auteur.id}) }}">{{ sortie.auteur.nom |capitalize }} {{ sortie.auteur.prenom [:1] }}</a></td>
 
             <td>
 
-                <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">Afficher</button></a>
 
-                {%  for u in sortie.inscriptions %}
-                    {% if  u.id== app.user.id%}
-                        <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-danger">Se désister</button></a>
-                        {% elseif u.id != app.user.id %}
-                            <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">S'inscrire</button></a>
+
+                {% if sortie.auteur== app.user%}
+                    {% if sortie.etat.libelle=='En création' %}
+                        <a href="{{ path('app_sortie_modifier',{id:sortie.id}) }}"><button class="btn btn-success">Modifier</button></a>
+                        <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-dark"> Publier</button></a>
+
                     {% endif %}
-                {% endfor %}
+
+                {% elseif sortie.auteur != app.user %}
+                    <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">Afficher</button></a>
+
+
+                                {% if inscrit %}
+                                    <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-danger">Se désister</button></a>
+                                {% else %}
+                                    <a href="{{ path('app_sortie_afficher',{id:sortie.id}) }}"><button class="btn btn-primary">S'inscrire</button></a>
+
+                                {% endif %}
+
+
+                {% endif %}
+
+
+
 
 
             </td>
