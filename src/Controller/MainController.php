@@ -29,9 +29,20 @@ class MainController extends AbstractController
         $filtreForm->handleRequest($request);
 
         if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
+            $choixSite=$request->request->get('site');
+
+            if ($choixSite) {
+
+                $sorties= $sortieRepository->findBy([],[$choixSite=>'DESC']);
+
+                dd($sorties);
+
+            }
 
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_home',[
+                'sorties'=>$sorties
+            ]);
         }
 
         return $this->render('main/index.html.twig',[
