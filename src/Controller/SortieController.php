@@ -41,18 +41,33 @@ class SortieController extends AbstractController
 
         $sortieForm = $this->createForm(SortieType::class, $sorite);
         $sortieForm->handleRequest($request);
+      //
+      //  if ($sortieForm->isSubmitted() )
+            if ($sortieForm->isSubmitted() && $sortieForm->isValid() )
+            {
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
-        {
-            $lieuId = $request->get('sortie[lieu]');
-            $lieu = $lieuRepository->find($lieuId);
-            $sorite->setLieu($lieu);
+
+                $env= $request->request->get('creer');
+
+                $publier='publier';
+
+                if($env=== $publier) {
+                    $etat = $etatRepository->findOneBy(['libelle'=>'Ouvert']);
+
+                    $sorite->setEtat($etat);
+                    $entityManager->persist($sorite);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Votre Sortie à été créee et publiée avec succes!');
+
+                    return $this->redirectToRoute('app_home');
+
+                }
 
             $entityManager->persist($sorite);
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-            $this->addFlash('success', 'Votre Sortieà été crée avec succes!');
+            $this->addFlash('success', 'Votre Sortie à été crée avec succes!');
 
             return $this->redirectToRoute('app_home');
         }
@@ -119,9 +134,10 @@ class SortieController extends AbstractController
                 $etat = $etatRepository->findOneBy(['libelle'=>'Ouvert']);
 
                 $sorite->setEtat($etat);
-                $this->addFlash('success', 'Votre Sortie à été publiée avec succes!');
                 $entityManager->persist($sorite);
                 $entityManager->flush();
+                $this->addFlash('success', 'Votre Sortie à été publiée avec succes!');
+
                 return $this->redirectToRoute('app_home');
 
             }
@@ -130,6 +146,7 @@ class SortieController extends AbstractController
                 $entityManager->remove($sorite);
                 $entityManager->flush();
                 $this->addFlash('success', 'Votre Sortie à été supprimée avec succes!');
+
                 return $this->redirectToRoute('app_home');
 
             }

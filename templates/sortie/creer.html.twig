@@ -70,7 +70,7 @@
                                     }
                                 }) }}
                                 <div>Ville organisatrice: <b>{{ app.user.site.nom }}</b></div>
-
+                            {#
                                 <div><label for="sortie_ville" class="required">Ville</label>
                                     <select id="sortie_ville" name="sortie[ville]">
                                     </select>
@@ -78,6 +78,10 @@
                                 <div><label for="sortie_lieu" class="required">Lieu</label>
                                     <select id="sortie_lieu" name="sortie[lieu]"></select>
                                 </div>
+                            #}
+                                {{ form_row(sortieForm.ville)}}
+                                {{ form_row(sortieForm.lieu)}}
+
 
                                 {{ form_row(sortieForm.urlPhoto)}}
 
@@ -86,13 +90,13 @@
 
 
 
-                                <button type="submit" class="btn btn-dark">Enregistrer</button>
-                                <button type="submit" class="btn btn-primary">Publier</button>
-                                <a href="{{ path('app_home') }}"><button type="submit" class="btn btn-danger">Annuler</button></a>
-
-
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                <button type="submit" class="btn btn-dark" name="creer" value="publier">Publier</button>
+                                <a href="{{ path('app_home') }}" class="btn btn-danger">Annuler</a>
 
                                  {{ form_end(sortieForm) }}
+
+
 
                             </div>
                         </div>
@@ -112,6 +116,7 @@
             .then( data => {
                 console.log(data);
                 objet= data;
+                document.getElementById('sortie_ville').innerHTML="";
                 for (let v of data.villes){
                     let option = document.createElement('option'); //<option></option>
                     option.textContent = v.nom; //<option>Bonjour</option>

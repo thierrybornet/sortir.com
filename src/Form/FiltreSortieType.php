@@ -12,14 +12,15 @@ class FiltreSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Entre',DateType::class,[
+
+            /*->add('Entre',DateType::class,[
                 'html5'=>true,
                 'widget'=>'single_text'])
 
             ->add('Et',DateType::class,[
                 'html5'=>true,
                 'widget'=>'single_text'
-            ])
+            ])*/
         ;
     }
 
