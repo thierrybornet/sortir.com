@@ -8,7 +8,9 @@ use App\Entity\User;
 use App\Form\AnnulationType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +23,11 @@ class SortieController extends AbstractController
     /**
      * @Route("/creer/sortie", name="app_sortie_creer")
      */
-    public function creerSortie(Request $request,EntityManagerInterface $entityManager,SortieRepository $sortieRepository,EtatRepository $etatRepository): Response
+    public function creerSortie(Request $request,
+                                EntityManagerInterface $entityManager,
+                                SortieRepository $sortieRepository,
+                                EtatRepository $etatRepository,
+    LieuRepository $lieuRepository): Response
     {
         $user=$this->getUser();
         $site=$user->getSite();
@@ -38,6 +44,9 @@ class SortieController extends AbstractController
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
+            $lieuId = $request->get('sortie[lieu]');
+            $lieu = $lieuRepository->find($lieuId);
+            $sorite->setLieu($lieu);
 
             $entityManager->persist($sorite);
             $entityManager->flush();
@@ -51,6 +60,20 @@ class SortieController extends AbstractController
         return $this->render('sortie/creer.html.twig',[
             'sortieForm'=>$sortieForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/lieux-villes", name="api_lieux_villes")
+     */
+    public function fruitsCouleurs(LieuRepository $lieuRepository,VilleRepository $villeRepository,EtatRepository $etatRepository): Response
+    {
+
+
+        $tab['lieux']= $lieuRepository->findAll();
+        $tab['villes']= $villeRepository->findAll();
+
+        // reponse en json
+        return $this->json($tab,200,[],['groups'=>'lieu']);
     }
 
     /**

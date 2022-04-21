@@ -71,9 +71,14 @@
                                 }) }}
                                 <div>Ville organisatrice: <b>{{ app.user.site.nom }}</b></div>
 
-                                {{ form_row(sortieForm.ville)}}
+                                <div><label for="sortie_ville" class="required">Ville</label>
+                                    <select id="sortie_ville" name="sortie[ville]">
+                                    </select>
+                                </div>
+                                <div><label for="sortie_lieu" class="required">Lieu</label>
+                                    <select id="sortie_lieu" name="sortie[lieu]"></select>
+                                </div>
 
-                                {{ form_row(sortieForm.lieu)}}
                                 {{ form_row(sortieForm.urlPhoto)}}
 
 
@@ -83,7 +88,7 @@
 
                                 <button type="submit" class="btn btn-dark">Enregistrer</button>
                                 <button type="submit" class="btn btn-primary">Publier</button>
-                                <button type="submit" class="btn btn-danger">Annuler</button>
+                                <a href="{{ path('app_home') }}"><button type="submit" class="btn btn-danger">Annuler</button></a>
 
 
 
@@ -97,6 +102,48 @@
         </div>
     </div>
 </section>
+
+    <script>
+        let objet;
+        let url = '../lieux-villes';
+        // de cette reponse on extrait le body : JSON
+        fetch(url)
+            .then(response =>response.json())
+            .then( data => {
+                console.log(data);
+                objet= data;
+                for (let v of data.villes){
+                    let option = document.createElement('option'); //<option></option>
+                    option.textContent = v.nom; //<option>Bonjour</option>
+                    //<option value="42">Bonjour</option>
+                    option.setAttribute('value',v.id);
+                    document.getElementById('sortie_ville').append(option);
+                }
+                afficherFruit(data.villes[0].id);
+                console.log(data.villes[0].id);
+            });
+
+        function afficherFruit(villeId){
+            // vider la balise select
+            document.getElementById('sortie_lieu').innerHTML="";
+            for (let l of objet.lieux){
+                if (villeId == l.ville.id)
+                {
+                    let option = document.createElement('option'); //<option></option>
+                    option.textContent = l.nom; //<option>Bonjour</option>
+                    //<option value="42">Bonjour</option>
+                    option.setAttribute('value',l.id);
+                    document.getElementById('sortie_lieu').append(option);
+                }
+            }
+        }
+
+        document.getElementById('sortie_ville').onchange = function () {
+            let id = document.getElementById('sortie_ville').value;
+            console.log(document.getElementById('sortie_ville').value);
+            afficherFruit(id);
+        }
+    </script>
 
 {% endblock %}
 {% block footer %} {{ parent () }}{% endblock %}

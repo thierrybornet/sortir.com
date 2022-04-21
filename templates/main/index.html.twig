@@ -17,16 +17,29 @@
         <h4>Participant : {{app.user.prenom |capitalize}} {{ app.user.nom [:1] }}</h4>
     </div>
 
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Sites
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {%  for site in sites %}
-                <li><a class="dropdown-item" href="#">{{ site.nom }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+
+
+
+        <div>
+            {{ form_start(filtreForm) }}
+            <div class="col-2">
+                <select class="form-select form-select-sm " aria-label=".form-select-sm example">
+                    <option selected>Selectionner le site </option>
+                    {%  for site in sites %}
+                        <option value="1">{{ site.nom }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            <div><label for="filtre_sortie_Entre" class="required">Entre</label>
+                <input type="date" id="filtre_sortie_Entre" name="filtre_sortie[Entre]" required="required" class="form-control "></div>
+
+
+            {{ form_end(filtreForm) }}
+        </div>
+
+
+
 
 
     <div class="input-group">

@@ -42,23 +42,6 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax')
             ->add('urlPhoto')
 
-            ->add('ville',EntityType::class, [
-                'class' => Ville::class,
-                'mapped' => false,
-                'choice_label' => 'nom',
-                'query_builder' => function(EntityRepository $repository) {
-                    return $repository->createQueryBuilder('c')->orderBy('c.nom', 'ASC');
-                }
-            ])
-
-
-            ->add('lieu',EntityType::class, [
-                'class' => Lieu::class,
-                'choice_label' => 'nom',
-                'query_builder' => function(EntityRepository $repository) {
-                    return $repository->createQueryBuilder('c')->orderBy('c.nom', 'ASC');
-                }
-            ])
 
 
         ;
