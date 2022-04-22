@@ -1,3 +1,7 @@
 footer {
     text-align: center;
 }
+
+#body.participant {
+        text-decoration-color: #0a58ca;
+}

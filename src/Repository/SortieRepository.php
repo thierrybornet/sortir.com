@@ -48,29 +48,32 @@ class SortieRepository extends ServiceEntityRepository
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+     public function findByExampleField($site)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('s.site = :val')
+            ->setParameter('val', $site)
             ->getQuery()
             ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Sortie
+            ;
+    }
+
+
+
+
+
+
+    public function findOne($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('s.auteur = :user')
+            ->setParameter('user', $value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
+
         ;
     }
-    */
+
 }

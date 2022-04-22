@@ -82,7 +82,7 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="inscriptions")
+     * @ORM\ManyToMany(targetEntity=User::class,fetch="EAGER", mappedBy="inscriptions")
      */
     private $usersInscrits;
 

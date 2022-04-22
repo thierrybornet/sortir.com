@@ -21,32 +21,46 @@ class MainController extends AbstractController
 
     Request $request): Response
     {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $sites=$siteRepository->findAll();
-        $sorties=$sortieRepository->findAll();
 
 
         $filtreForm=$this->createForm(FiltreSortieType::class);
         $filtreForm->handleRequest($request);
 
-        if ($filtreForm->isSubmitted() && $filtreForm->isValid()) {
-            $choixSite=$request->request->get('site');
+        $choixSite=$request->request->get('site');
 
+        $choixInscrit=$request->request->get('organisateur');
+
+        $inscrit=$request->request->get('inscrit');
+
+
+
+        $sorties= $sortieRepository->findAll();
+
+        if ($filtreForm->isSubmitted()) {
             if ($choixSite) {
+                $sorties= $sortieRepository->findByExampleField($choixSite);
 
-                $sorties= $sortieRepository->findBy([],[$choixSite=>'DESC']);
-
-                dd($sorties);
+            }
+            if ($choixInscrit) {
+                $sorties= $sortieRepository->findOne($choixInscrit);
 
             }
 
 
-            return $this->redirectToRoute('app_home',[
-                'sorties'=>$sorties
-            ]);
         }
 
+
+
+
+
         return $this->render('main/index.html.twig',[
-            'sites'=>$sites,'sorties'=>$sorties,'filtreForm'=>$filtreForm->createView()
+            'sites'=>$sites,'sorties'=>$sorties,'filtreForm'=>$filtreForm->createView(),
         ]);
     }
 }
